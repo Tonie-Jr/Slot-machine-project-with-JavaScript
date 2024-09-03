@@ -1,5 +1,5 @@
 //Deposite some money
-//Detemini the number of lines to bet on
+//Detemine the number of lines to bet on
 //Collect a bet amount
 //Spin the slop machine
 //Check if the user won
@@ -15,17 +15,17 @@ const COLS = 3;
 
 //Defining the symbols using objects
 const SYMBOLS_COUNT = {   
-    "A": 2,
-    "B": 4,
-    "C": 6,
-    "D": 8
+    A: 2,
+    B: 4,
+    C: 6,
+    D: 8
 }
 //Definging the values of the symbols
-const SYMBOLS_VALUE = {
-    "A": 5,
-    "B": 4,
-    "C": 3,
-    "D": 2
+const SYMBOLS_VALUES = {
+    A: 5,
+    B: 4,
+    C: 3,
+    D: 2
 }
 
 const deposit = () => {
@@ -66,7 +66,19 @@ const getBet = (balance, lines) => {
             return numberBet; // The while loop allows us to loop over the whole functions untill all the above criteria are met. float number is entered
         }
     }
-}
+};
+
+const spin = () => {
+    const symbols = [];
+    for (const [symbol, count] of Object.entries(SYMBOLS_COUNT)) {
+        for (let i = 0; i < count; i++) {
+            symbols.push(symbol);
+        }
+    }
+    console.log(symbols)
+};
+
+spin();
 
 let balance = deposit(); // the let allows us to adjust the value, giving us a chance to change what it is stroring future.
 //const numberBet = getBet();
