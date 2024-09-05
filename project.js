@@ -117,6 +117,7 @@ const printRows = (rows) => {
     }
 };
 
+//Check if the user won
 const getWinnings = (rows, bet, lines) => {
     let winnings = 0;
 
@@ -139,18 +140,36 @@ const getWinnings = (rows, bet, lines) => {
     return winnings;
 };
 
-let balance = deposit(); // the let allows us to adjust the value, giving us a chance to change what it is stroring future.
-//const numberBet = getBet();
-//const depositAmount = deposit(); // calls the function and assigns it a variable name depositAmount.
-//console.log(depositAmount); //prints the variable
 
-const numberOfLines = getNumberOfLines(); //call the function and assing it a variable name nuberOfLines
-//console.log(numberOfLines) //prints the variabe
-const bet = getBet(balance, numberOfLines);// calls the functiona and assing it avariable name bet
-const reels = spin();
-const rows = transpose(reels);
-console.log(reels);
-console.log(rows);
-printRows(rows);
-const winnings = getWinnings(rows, bet, numberOfLines);
-console.log("You won, $" + winnings.toString());
+
+const game = () => {
+    let balance = deposit(); // the let allows us to adjust the value, giving us a chance to change what it is stroring future.
+    //const numberBet = getBet();
+    //const depositAmount = deposit(); // calls the function and assigns it a variable name depositAmount.
+    //console.log(depositAmount); //prints the variable
+
+    while (true) {
+        console.log("You have a balance of $" + balance);
+        const numberOfLines = getNumberOfLines(); //call the function and assing it a variable name nuberOfLines
+        //console.log(numberOfLines) //prints the variabe
+        const bet = getBet(balance, numberOfLines);// calls the functiona and assing it avariable name bet
+        balance -= bet * numberOfLines
+        const reels = spin();
+        const rows = transpose(reels);
+        console.log(reels);
+        console.log(rows);
+        printRows(rows);
+        const winnings = getWinnings(rows, bet, numberOfLines);
+        balance += winnings;
+        console.log("You won, $" + winnings.toString());
+        if (balance <= 0) {
+            console.log("You ran out of money!");
+            break;
+        }
+
+        const playAgain = prompt("Do you want to play again? (y/n) ")
+        if (playAgain != "y") break;
+    }
+};
+
+game();
