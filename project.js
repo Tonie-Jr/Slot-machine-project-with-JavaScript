@@ -1,7 +1,7 @@
 //Deposite some money
 //Detemine the number of lines to bet on
 //Collect a bet amount
-//Spin the slop machine
+//Spin the slot machine
 //Check if the user won
 //Give the user their winnings
 //Play agian
@@ -113,9 +113,31 @@ const printRows = (rows) => {
             }
         }
 
-        console.log(rowString)
+        console.log(rowString);
     }
-}
+};
+
+const getWinnings = (rows, bet, lines) => {
+    let winnings = 0;
+
+    for (let row = 0; row < lines; row++) {
+        const symbols = rows[row];
+        let allSame = true;
+
+        for (const symbol of symbols) {
+            if (symbol != symbols[0]) {
+                allSame = false;
+                break;
+            }
+        }
+
+        if (allSame) {
+            winnings += bet * SYMBOLS_VALUES[symbols[0]]
+        }
+    }
+
+    return winnings;
+};
 
 let balance = deposit(); // the let allows us to adjust the value, giving us a chance to change what it is stroring future.
 //const numberBet = getBet();
@@ -130,3 +152,5 @@ const rows = transpose(reels);
 console.log(reels);
 console.log(rows);
 printRows(rows);
+const winnings = getWinnings(rows, bet, numberOfLines);
+console.log("You won, $" + winnings.toString());
